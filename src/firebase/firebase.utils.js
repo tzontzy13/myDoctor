@@ -28,6 +28,34 @@ export const createUserProfileDocument = async (userAuth) => {
    return userRef;
 };
 
+export const testingGet = async (docId) => {
+
+   docId = '5G5Kin0FX4ZYHmgBrNu8'
+
+   if (!auth.currentUser) return;
+
+   const userRef = firestore.doc(`users/${auth.currentUser.uid}`);
+
+   const userApp = userRef.collection('appointments').doc(docId)
+
+   const apps = await userApp.get()
+
+   console.log(apps.data())
+
+   // const test = await userRef.get()
+   // console.log(test.data())
+}
+
+export const testingSet = async () => {
+
+   if (!auth.currentUser) return;
+
+   const userRef = firestore.doc(`users/${auth.currentUser.uid}`);
+
+   await userRef.update({ dob: '13-1999' })
+
+}
+
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
