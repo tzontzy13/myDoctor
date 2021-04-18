@@ -1,80 +1,78 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 
-import './App.css';
+// import './App.css';
 
 import HomePage from './pages/homepage/homepage.component';
 import AddAppointment from './pages/add-report/add-report.component';
+import ReportList from './pages/report-list/report-list.component'
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import Header from './components/header/header.component';
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
-import { setCurrentUser } from './redux/user/user.actions';
+import Spinner from './components/spinner/spinner'
 
-class App extends React.Component {
-   unsubscribeFromAuth = null;
+const App = ({ currentUser }) => {
 
-   componentDidMount() {
-      const { setCurrentUser } = this.props;
+   return (
+      <div>
+         <Header />
+         <Switch>
+            <Route
+               exact
+               path='/'
+               render={() =>
+                  currentUser ? (
+                     <HomePage />
+                  ) : (
+                     <Redirect to='/signin' />
+                  )
+               }
+            />
+            <Route
+               exact
+               path='/signin'
+               render={() =>
+                  currentUser ? (
+                     <Redirect to='/' />
+                  ) : (
+                     <SignInAndSignUpPage />
+                  )
+               }
+            />
 
-      this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-         if (userAuth) {
-            const userRef = await createUserProfileDocument(userAuth);
+            <Route
+               exact
+               path='/appointment'
+               render={() =>
+                  currentUser ? (
+                     <AddAppointment />
+                  ) : (
+                     <Redirect to='/' />
+                  )
+               }
+            />
 
-            userRef.onSnapshot(snapShot => {
-               setCurrentUser({
-                  id: snapShot.id,
-                  ...snapShot.data()
-               });
-            });
-         }
-
-         setCurrentUser(userAuth);
-      });
-   }
-
-   componentWillUnmount() {
-      this.unsubscribeFromAuth();
-   }
-
-   render() {
-      return (
-         <div>
-            <Header />
-            <Switch>
-               <Route exact path='/' component={HomePage} />
-               <Route
-                  exact
-                  path='/signin'
-                  render={() =>
-                     this.props.currentUser ? (
-                        <Redirect to='/' />
-                     ) : (
-                        <SignInAndSignUpPage />
-                     )
-                  }
-               />
-
-               <Route
-                  exact
-                  path='/appointment'
-                  component={AddAppointment}
-               />
-            </Switch>
-         </div>
-      );
-   }
+            <Route
+               exact
+               path='/list'
+               render={() =>
+                  currentUser ? (
+                     <ReportList />
+                  ) : (
+                     <Redirect to='/' />
+                  )
+               }
+            />
+         </Switch>
+      </div>
+   );
 }
 
-const mapStateToProps = ({ user }) => ({
-   currentUser: user.currentUser
-});
+const mapStateToProps = state => ({
+   isLoading: !state.user.wasUserChecked
+})
 
-const mapDispatchToProps = dispatch => ({
-   setCurrentUser: user => dispatch(setCurrentUser(user))
-});
+const Test = compose(connect(mapStateToProps), Spinner)(App)
 
-export default connect(
-   mapStateToProps,
-   mapDispatchToProps
-)(App);
+export default Test;

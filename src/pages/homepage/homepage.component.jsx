@@ -1,19 +1,21 @@
 import React from 'react';
+import './homepage.styles.scss';
 
 import CustomButton from '../../components/custom-button/custom-button.component'
-
-import './homepage.styles.scss';
+import { withRouter } from 'react-router-dom';
 
 import { testingGet, testingSet } from '../../firebase/firebase.utils'
 
-const HomePage = () => {
+const HomePage = ({ history }) => {
 
    const handleClick = () => {
-      testingGet()
+      // testingGet()
+      history.push('/appointment')
    }
 
    const handleClick2 = () => {
-      testingSet()
+      // testingSet()
+      history.push('/list')
    }
 
    return (
@@ -28,4 +30,4 @@ const HomePage = () => {
 }
 
 
-export default HomePage;
+export default withRouter(HomePage);
