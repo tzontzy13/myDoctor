@@ -29,12 +29,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ReportList = ({ setApps, appointments }) => {
 
-   // useEffect(() => {
-   //    console.log(search)
-   //    console.log(value)
-   //    console.log(sort)
-   // })
-
    const classes = useStyles()
    const [search, setSearch] = React.useState('');
    const [value, setValue] = React.useState('');
@@ -53,7 +47,9 @@ const ReportList = ({ setApps, appointments }) => {
    }
 
    const handleSubmit = () => {
-      getBy(search, value).then(res => {
+      // console.log(search, value, sort)
+      if (!search) return
+      getBy(search, value, sort).then(res => {
          console.log(res)
          setApps(res)
       })
@@ -71,14 +67,14 @@ const ReportList = ({ setApps, appointments }) => {
                value={search}
                onChange={handleSearch}
             >
-               <MenuItem value="">
+               <MenuItem value=''>
                   <em>None</em>
                </MenuItem>
                <MenuItem value='all'>All</MenuItem>
                <MenuItem value='name'>By name</MenuItem>
                <MenuItem value='date'>By date</MenuItem>
-               <MenuItem value='symp'>By symptoms</MenuItem>
-               <MenuItem value='recom'>By recommendation</MenuItem>
+               <MenuItem value='symptoms'>By symptoms</MenuItem>
+               <MenuItem value='recommendation'>By recommendation</MenuItem>
             </Select>
             <FormHelperText>Select one</FormHelperText>
          </FormControl>
@@ -89,7 +85,7 @@ const ReportList = ({ setApps, appointments }) => {
             handleChange={handleInput}
             value={value}
             label='value'
-            disabled={search ? false : true}
+            disabled={(search == '' || search == 'all') ? true : false}
          />
 
          <FormControl className={classes.formControl}>

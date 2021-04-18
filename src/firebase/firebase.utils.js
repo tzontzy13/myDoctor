@@ -52,7 +52,7 @@ export const getAll = async () => {
    return appList
 }
 
-export const getBy = async (type, value) => {
+export const getBy = async (type, value, sort) => {
 
    if (!auth.currentUser) return;
 
@@ -60,14 +60,18 @@ export const getBy = async (type, value) => {
 
    const userApp = userRef.collection('appointments')
 
-   console.log(value)
    let query
-   // const query = userApp.where(type, '==', value)
-   // const westCoastCities = userApp.where(type, 'array-contains', value).get();
-   if (type == 'name' || type == 'date') {
+
+   if (type == 'all') {
+      query = userApp
+   } else if (type == 'name' || type == 'date') {
       query = userApp.where(type, '==', value)
-   } else if (type == 'symptoms') {
-      query = userApp.where(type, 'array-contains', value).get()
+   } else {
+      query = userApp.where(type, 'array-contains', value)
+   }
+
+   if (sort) {
+      query = query.orderBy(sort)
    }
 
    const apps = await query.get()
