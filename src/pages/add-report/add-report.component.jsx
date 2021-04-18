@@ -38,7 +38,7 @@ const AddAppointment = () => {
                   Appointment date:
                   <FormInput
                      name='date'
-                     type='datetime-local'
+                     type='date'
                      handleChange={handleChange}
                      value={date}
                      // required

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import './report-list.styles.scss'
 
-import { testingGet } from '../../firebase/firebase.utils'
+import { getAll, getBy } from '../../firebase/firebase.utils'
 import { connect } from 'react-redux'
 import { setApps } from '../../redux/appointments/appointments.actions'
 
@@ -53,7 +53,7 @@ const ReportList = ({ setApps, appointments }) => {
    }
 
    const handleSubmit = () => {
-      testingGet().then(res => {
+      getBy(search, value).then(res => {
          console.log(res)
          setApps(res)
       })
@@ -116,7 +116,7 @@ const ReportList = ({ setApps, appointments }) => {
                appointments.length > 0
                   ?
                   appointments.map(app => {
-                     return <ReportDetails key={app.date} props={app} />
+                     return <ReportDetails key={app.id} props={app} />
                   })
                   :
                   <p>none</p>

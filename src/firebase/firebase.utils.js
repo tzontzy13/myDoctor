@@ -29,7 +29,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
    return userRef;
 };
 
-export const testingGet = async (docId) => {
+export const getAll = async () => {
 
    if (!auth.currentUser) return;
 
@@ -46,7 +46,38 @@ export const testingGet = async (docId) => {
    const appList = []
    apps.forEach(app => {
       console.log(app.id, '=>', app.data())
-      appList.push(app.data())
+      appList.push({ ...app.data(), id: app.id })
+   })
+
+   return appList
+}
+
+export const getBy = async (type, value) => {
+
+   if (!auth.currentUser) return;
+
+   const userRef = firestore.doc(`doctors/${auth.currentUser.uid}`);
+
+   const userApp = userRef.collection('appointments')
+
+   console.log(value)
+   let query
+   // const query = userApp.where(type, '==', value)
+   // const westCoastCities = userApp.where(type, 'array-contains', value).get();
+   if (type == 'name' || type == 'date') {
+      query = userApp.where(type, '==', value)
+   } else if (type == 'symptoms') {
+      query = userApp.where(type, 'array-contains', value).get()
+   }
+
+   const apps = await query.get()
+
+   // const apps = await userApp.get()
+
+   const appList = []
+   apps.forEach(app => {
+      console.log(app.id, '=>', app.data())
+      appList.push({ ...app.data(), id: app.id })
    })
 
    return appList
