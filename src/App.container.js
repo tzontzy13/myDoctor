@@ -8,6 +8,7 @@ import { setUser } from './redux/user/user.actions';
 
 import App from './App';
 
+// copied code, starts checking if user is logged in and then returns the user object
 const userSubscription = (WrappedComponent) => ({ setUser, ...otherProps }) => {
    useEffect(() => {
       const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {

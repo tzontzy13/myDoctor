@@ -4,8 +4,6 @@ import './homepage.styles.scss';
 import CustomButton from '../../components/custom-button/custom-button.component'
 import { withRouter } from 'react-router-dom';
 
-import { testingGet, testingSet } from '../../firebase/firebase.utils'
-
 const HomePage = ({ history }) => {
 
    const handleClick = () => {

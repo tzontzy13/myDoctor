@@ -8,6 +8,8 @@ import store from './redux/store';
 import './index.css';
 import App from './App.container';
 
+// provider => access store in components
+// router => app routing
 ReactDOM.render(
    <Provider store={store}>
       <BrowserRouter>

@@ -1,3 +1,5 @@
+// copied code from https://github.com/ZhangMYihua/lesson-12
+
 import React from 'react'
 
 import { SpinnerContainer, SpinnerOverlay } from './spinner.styles.jsx'

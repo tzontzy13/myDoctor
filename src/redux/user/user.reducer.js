@@ -5,6 +5,8 @@ const INITIAL_STATE = {
    wasUserChecked: false
 };
 
+// holds user state, element of redux
+
 const userReducer = (state = INITIAL_STATE, action) => {
    switch (action.type) {
       case UserActionTypes.SET_USER:

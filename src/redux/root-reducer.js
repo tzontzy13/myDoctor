@@ -7,3 +7,5 @@ export default combineReducers({
    user: userReducer,
    apps: appsReducer
 });
+
+// combine the 2 reducers, to use in the store

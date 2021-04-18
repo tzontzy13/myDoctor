@@ -6,7 +6,7 @@ import "react-datetime/css/react-datetime.css";
 import FormInput from '../../components/form-input/form-input.component'
 import CustomBtn from '../../components/custom-button/custom-button.component'
 
-import { testingSet } from '../../firebase/firebase.utils'
+import { addAppointment } from '../../firebase/firebase.utils'
 
 const AddAppointment = () => {
 
@@ -17,7 +17,7 @@ const AddAppointment = () => {
    const handleSubmit = event => {
       event.preventDefault()
       // setUserCredentials({ ...userCredentials, symptoms: test })
-      testingSet({ ...userCredentials, symptoms: userCredentials.symptoms.split(","), recommendation: userCredentials.recommendation.split(",") })
+      addAppointment({ ...userCredentials, symptoms: userCredentials.symptoms.split(","), recommendation: userCredentials.recommendation.split(",") })
       console.log({ ...userCredentials, symptoms: userCredentials.symptoms.split(","), recommendation: userCredentials.recommendation.split(",") })
    }
 

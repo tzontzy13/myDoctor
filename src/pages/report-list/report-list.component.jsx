@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './report-list.styles.scss'
 
-import { getAll, getBy } from '../../firebase/firebase.utils'
+import { getBy } from '../../firebase/firebase.utils'
 import { connect } from 'react-redux'
 import { setApps } from '../../redux/appointments/appointments.actions'
 

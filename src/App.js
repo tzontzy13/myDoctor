@@ -12,6 +12,8 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 import Header from './components/header/header.component';
 import Spinner from './components/spinner/spinner'
 
+
+// app routing
 const App = ({ currentUser }) => {
 
    return (

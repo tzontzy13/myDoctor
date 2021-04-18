@@ -1,3 +1,6 @@
+// coiped some code from https://github.com/ZhangMYihua/lesson-12
+
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';

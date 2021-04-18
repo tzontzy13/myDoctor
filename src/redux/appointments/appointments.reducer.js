@@ -4,6 +4,8 @@ const INITIAL_STATE = {
    appointments: []
 };
 
+// holds all appointments state, element of redux
+
 const appsReducer = (state = INITIAL_STATE, action) => {
    switch (action.type) {
       case AppsActionTypes.SET_APPS:

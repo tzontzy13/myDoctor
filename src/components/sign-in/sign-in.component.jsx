@@ -1,3 +1,5 @@
+// coiped some code from https://github.com/ZhangMYihua/lesson-12
+
 import React, { useState } from 'react';
 
 import FormInput from '../form-input/form-input.component';
